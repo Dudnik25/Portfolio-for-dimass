@@ -133,9 +133,13 @@ window.addEventListener('resize', resizeEvent);
 
 // -----Instagram Photo-----
 async function getPhoto() {
-  const article = document.querySelectorAll('.article');
   const data = await Ajax.get('https://www.instagram.com/website_of_the_day/?__a=1');
   const photos = data.graphql.user.edge_owner_to_timeline_media.edges;
+  return photos;
+}
+
+getPhoto().then(photos => {
+  const article = document.querySelectorAll('.article');
 
   for (let i = 0; i < 3; i++) {
     const image = article[i].querySelector('.article__img');
@@ -144,9 +148,7 @@ async function getPhoto() {
     img.classList.add('article__background');
     image.append(img);
   }
-}
-
-getPhoto();
+});
 
 // -----Licence Year-----
 const dateYear = new Date().getFullYear();
